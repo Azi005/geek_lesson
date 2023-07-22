@@ -41,9 +41,12 @@ move()
 
 const startTime = document.querySelector('#seconds')
 const btnStart = document.querySelector('#start')
+const btnReset = document.querySelector('#reset')
+const btnStop = document.querySelector('#stop')
 
 let interval;
-let second = 0
+let second = 0;
+
 
 const startTimer = () => {
     second++;
@@ -54,8 +57,15 @@ const startTimer = () => {
     }
 }
 
-
+btnStop.addEventListener('click', () => {
+    clearInterval(interval)
+})
+btnReset.addEventListener('click', () => {
+    clearInterval(interval);
+    second = 0;
+})
 btnStart.addEventListener('click', () => {
+    clearInterval(interval)
     interval = setInterval(startTimer, 1000);
 })
 
