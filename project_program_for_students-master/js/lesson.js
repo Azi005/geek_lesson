@@ -86,9 +86,14 @@ const convert = (element, target, target2, isTrue) => {
                 target2.value = (element.value * data.eur).toFixed(2)
             }
             element.value === '' && (target.value = '')
+            element.value === '' && (target2.value = '')
         }
     }
 }
 
 convert(som, usd, eur, true)
 convert(usd, som, eur, false)
+convert(eur, usd, som, true)
+convert(eur, usd, som, false)
+
+
