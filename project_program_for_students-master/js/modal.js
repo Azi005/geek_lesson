@@ -18,13 +18,18 @@ setTimeout(() =>{
     openModal()
 },10000)
 
-window.addEventListener('scroll', function() {
-    let documentHeight = document.documentElement.scrollHeight;
-    let windowHeight = window.innerHeight;
-    if (window.pageYOffset >= documentHeight-windowHeight) {
-        openModal();
-
+const scrollHandler = () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
+        openModal()
+        window.removeEventListener('scroll', scrollHandler)
     }
-});
+}
+window.addEventListener('scroll', scrollHandler)
 
 
+const form = document.querySelector('form')
+
+const  postData = (form) => {
+     
+}
+postData(form)

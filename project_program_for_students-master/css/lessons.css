@@ -122,4 +122,20 @@
     justify-content: space-between;
 }
 
+.converter{
+    padding: 100px 0;
+    background-color: black;
+}
+.inner_converter{
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 30px;
+}
 
+.inner_converter > div{
+    display: flex;
+    flex-direction: column;
+}

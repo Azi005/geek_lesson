@@ -66,4 +66,29 @@ phoneCheck.addEventListener('click', () => {
     }
 })
 
+const som = document.querySelector('#som')
+const usd = document.querySelector('#usd')
+const eur = document.querySelector('#eur')
 
+const convert = (element, target, target2, isTrue) => {
+    element.oninput = () => {
+        const request = new XMLHttpRequest()
+        request.open('GET', "../data/convert.json")
+        request.setRequestHeader("Content-type", "application/json")
+        request.send()
+        request.onload = () => {
+            const data = JSON.parse(request.response)
+            if(isTrue) {
+                target.value = (element.value / data.usd).toFixed(2)
+                target2.value = (element.value / data.eur).toFixed(2)
+            } else {
+                target.value = (element.value * data.usd).toFixed(2)
+                target2.value = (element.value * data.eur).toFixed(2)
+            }
+            element.value === '' && (target.value = '')
+        }
+    }
+}
+
+convert(som, usd, eur, true)
+convert(usd, som, eur, false)
