@@ -62,11 +62,12 @@ btnStop.addEventListener('click', () => {
 })
 btnReset.addEventListener('click', () => {
     clearInterval(interval);
-    second = 0;
+
 })
 btnStart.addEventListener('click', () => {
     clearInterval(interval)
     interval = setInterval(startTimer, 1000);
+
 })
 
 

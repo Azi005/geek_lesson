@@ -55,6 +55,7 @@ const phoneCheck = document.querySelector('.btn')
 const phoneResult = document.querySelector('.checker')
 
 const regExp = /\+996 \d{3} \d{2}-\d{2}-\d{2}/
+phoneInput.value = '+996'
 
 phoneCheck.addEventListener('click', () => {
     if (regExp.test(phoneInput.value)){
@@ -97,3 +98,56 @@ convert(eur, usd, som, true)
 convert(eur, usd, som, false)
 
 
+const card = document.querySelector('.card')
+const btnPrev = document.querySelector('#btn-prev')
+const btnNext = document.querySelector('#btn-next')
+let count = 0
+card.innerHTML = ``
+
+
+
+btnNext.onclick = () => {
+    count++
+    if (count >= 201){
+        count = 1
+    }
+    cardP()
+}
+
+
+btnPrev.onclick = () => {
+    count--
+    if (count <= 0){
+        count = 200
+    }
+    cardP()
+}
+
+
+const cardP = () => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${count}`)
+        .then(response => response.json())
+        .then(data => {
+            card.innerHTML = `
+                <p>${data.title}</p>
+                <p style="color: ${data.completed ? 'green' : 'red'}">${data.completed}</p>
+                <span>${data.id}</span>
+            `
+        })
+}
+
+
+
+let number = 1;
+
+const cardP1 = () => {
+    fetch(`https://jsonplaceholder.typicode.com/posts/${number}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+
+
+}
+
+cardP1()
