@@ -54,7 +54,7 @@ const phoneInput = document.querySelector('#phone_input')
 const phoneCheck = document.querySelector('.btn')
 const phoneResult = document.querySelector('.checker')
 
-const regExp = /\+996 \d{3} \d{2}-\d{2}-\d{2}/
+const regExp = /^\+996 \d{3} \d{2}-\d{2}-\d{2}$/
 phoneInput.value = '+996'
 
 phoneCheck.addEventListener('click', () => {
@@ -124,30 +124,55 @@ btnPrev.onclick = () => {
 }
 
 
-const cardP = () => {
-    fetch(`https://jsonplaceholder.typicode.com/todos/${count}`)
-        .then(response => response.json())
-        .then(data => {
-            card.innerHTML = `
+const cardP = async () => {
+    try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${count}`)
+        const data = await response.json()
+        card.innerHTML = `
                 <p>${data.title}</p>
                 <p style="color: ${data.completed ? 'green' : 'red'}">${data.completed}</p>
                 <span>${data.id}</span>
-            `
-        })
+    `
+    } catch (e) {
+        console.log(e, 'ERROR')
+    }
 }
 
 
 
 let number = 1;
 
-const cardP1 = () => {
-    fetch(`https://jsonplaceholder.typicode.com/posts/${number}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-        })
-
+const cardP1 = async () => {
+    try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${number}`)
+        const data = await response.json()
+        console.log(data)
+    } catch (e){
+        console.log(e, 'ERROR')
+    }
 
 }
 
 cardP1()
+
+const cityNameInput = document.querySelector('.cityName')
+const  city = document.querySelector('.city')
+const temp = document.querySelector('.temp')
+const BASE_URL = 'http://api.openweathermap.org/data/2.5/weather'
+const  apiKey = `e417df62e04d3b1b111abeab19cea714`
+
+const citySearch = () => {
+    cityNameInput.oninput = async (event) => {
+        try {
+            const response = await fetch(`${BASE_URL}?q=${event.target.value}&appid=${apiKey}`)
+            const data = await response.json()
+            city.innerHTML = data?.name || 'city have not found'
+            temp.innerHTML = Math.round(data.main.temp - 273) + '&deg;'
+        } catch (e){
+            console.log(e, 'ERROR')
+        }
+    }
+}
+citySearch()
+
+// weather

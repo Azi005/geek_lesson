@@ -29,21 +29,24 @@ window.addEventListener('scroll', scrollHandler)
 
 const form = document.querySelector('form')
 
-const  postData = (url, json) => {
-     const response = fetch(url, {
-         method: 'POST',
-         headers: {'Content-type': 'application/json'},
-         body: json
-     })
-     return response
-}
-const bindPostData = (form) => {
-    form.onsubmit = (event) => {
+const  postData = (form) => {
+    form.addEventListener('submit0', (event) => {
         event.preventDefault()
-        const  formData = new FormData(form)
+
+        const request = new XMLHttpRequest()
+        request.open("POST", "server.php")
+        request.setRequestHeader("Content-type", "application/json")
+        const formData = new FormData(form)
         const obj = {}
         formData.forEach((item, i) => {
             obj[i] = item
         })
-    }
+        console.log(obj)
+        const json = JSON.stringify(obj)
+        request.send()
+        request.onload = () => {
+            console.log(request.response)
+        }
+    })
 }
+postData(form)
